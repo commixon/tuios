@@ -1,0 +1,52 @@
+#!/bin/bash
+
+source ~/.config/tuios/theme/colors.sh
+
+usage() {
+  cat <<EOF
+usage: global-protect-vpn [-i|--install] server
+
+positional arguments:
+  server: Global Protect gateway/server/endpoint
+
+options:
+  -i, --install Will install the gp-saml-gui package
+
+examples:
+  global-protect-vpn --install # (will install package)
+  global-protect-vpn vpn.example.com # (will connect to vpn.example.com)
+EOF
+}
+
+install() {
+  if gum confirm "Install gp-saml-gui ?"; then
+    pip3 install https://github.com/dlenski/gp-saml-gui/archive/master.zip
+  fi
+  exit 0
+}
+
+connect() {
+  OPENSSL_CONF=~/.config/gp-saml-gui/ssl.conf gp-saml-gui --no-verify --gateway --clientos=Linux "$GATEWAY" -P -- --mtu 1300
+  exit 0
+}
+
+POSITIONAL_ARGS=()
+while [[ $# -gt 0 ]]; do
+  case $1 in
+  -i | --install)
+    install
+    ;;
+  *)
+    GATEWAY+=("$1") # save positional arg
+    if [ -z "$GATEWAY" ]; then
+      usage
+      exit 1
+    else
+      connect
+    fi
+    shift # past argument
+    ;;
+  esac
+done
+
+usage

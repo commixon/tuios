@@ -36,3 +36,5 @@ tmux
 aws-cli-v2
 waylock
 swayidle
+rofi
+cliphist

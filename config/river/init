@@ -24,6 +24,11 @@ mod="Mod4"
 
 riverctl map normal $mod T spawn "$terminal"
 riverctl map normal $mod B spawn "$browser"
+riverctl map normal $mod R spawn "rofi -show drun"
+riverctl map normal $mod E spawn "$terminal -e zsh -ic yazi"
+riverctl map normal $mod+Shift C spawn "rofi-clipboard"
+riverctl map normal $mod Escape spawn "rofi-power"
+
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn foot
 

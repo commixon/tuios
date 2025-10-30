@@ -34,3 +34,5 @@ pavucontrol
 dunst
 tmux
 aws-cli-v2
+waylock
+swayidle

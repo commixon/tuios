@@ -196,3 +196,4 @@ foot --server &
 waybar &
 dunst &
 wl-paste --type text --watch cliphist store &
+wl-clip-persist --clipboard regular &

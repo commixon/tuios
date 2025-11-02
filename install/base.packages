@@ -16,6 +16,7 @@ foot
 zen-browser-bin
 networkmanager-openconnect
 nodejs
+npm
 pyenv
 zig
 go
@@ -35,6 +36,8 @@ dunst
 tmux
 aws-cli-v2
 waylock
+wlopm
+chayang
 swayidle
 rofi
 cliphist
@@ -44,3 +47,4 @@ slurp
 grim
 satty
 gazelle-tui
+tree-sitter-cli

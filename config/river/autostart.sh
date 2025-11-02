@@ -16,3 +16,9 @@ pkill -f wl-clip-persist
 wl-clip-persist --clipboard regular &
 
 foot --server &
+
+pkill -f swayidle
+
+swayidle -w \
+  timeout 600 "waylock.sh" \
+  timeout 660 "wlopm --off '*'" resume "wlopm --on '*'" &

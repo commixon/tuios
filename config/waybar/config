@@ -50,7 +50,8 @@
   "network": {
     "format-wifi": "{essid} ",
     "format-ethernet": "{ipaddr} ",
-    "format-disconnected": "Disconnected ⚠"
+    "format-disconnected": "Disconnected ⚠",
+    "on-click": "footclient -a 'TUI Wifi' gazelle"
   },
   "pulseaudio": {
     //"scroll-step": 1,

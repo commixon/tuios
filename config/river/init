@@ -3,36 +3,31 @@
 # Load environment variables
 source "$HOME/.config/river/env.sh"
 source "$HOME/.config/tuios/theme/colors.sh"
+source "$HOME/.config/river/autostart.sh"
 
-# This is the example configuration file for river.
-#
-# If you wish to edit this, you will probably want to copy it to
-# $XDG_CONFIG_HOME/river/init or $HOME/.config/river/init first.
-#
-# See the river(1), riverctl(1), and rivertile(1) man pages for complete
-# documentation.
 riverctl spawn "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-# riverctl spawn "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
-# riverctl spawn "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river"
 systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=river
 systemctl --user restart xdg-desktop-portal
-# Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
-terminal="foot"
-browser="zen-browser"
-mod="Mod4"
 
-riverctl map normal $mod T spawn "$terminal"
-riverctl map normal $mod B spawn "$browser"
-riverctl map normal $mod R spawn "rofi -show drun"
-riverctl map normal $mod E spawn "$terminal -e zsh -ic yazi"
-riverctl map normal $mod+Shift C spawn "rofi-clipboard"
-riverctl map normal $mod Escape spawn "rofi-power"
+# Example of setting layout
+# riverctl keyboard-layout -options "grp:win_space_toggle" "us,gr"
+
+# Note: the "Super" modifier is also known as Logo, GUI, Windows, Mod4, etc.
+terminal="footclient"
+browser="zen-browser"
+
+riverctl map normal Super T spawn "$terminal"
+riverctl map normal Super B spawn "$browser"
+riverctl map normal Super R spawn "rofi -show drun"
+riverctl map normal Super E spawn "$terminal -a "TUI yazi" yazi"
+riverctl map normal Super+Shift C spawn "$HOME/.local/bin/rofi-clipboard"
+riverctl map normal Super Escape spawn "$HOME/.local/bin/rofi-power"
 
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super+Shift Return spawn foot
 
-riverctl map normal $mod+Control R spawn "$HOME/.config/river/init >/dev/null && notify-send 'Refreshed River'"
+riverctl map normal Super+Control R spawn "$HOME/.config/river/init >/dev/null && notify-send 'Refreshed River'"
 
 # Super+Q to close the focused view
 riverctl map normal Super Q close
@@ -40,17 +35,18 @@ riverctl map normal Super Q close
 # Super+Shift+E to exit river
 riverctl map normal Super+Shift E exit
 
-# Focus windows with $mod h/j/k/l
-riverctl map normal $mod H focus-view left
-riverctl map normal $mod J focus-view down
-riverctl map normal $mod K focus-view up
-riverctl map normal $mod L focus-view right
+# Focus windows with Super h/j/k/l
+riverctl map normal Super H focus-view left
+riverctl map normal Super J focus-view down
+riverctl map normal Super K focus-view up
+riverctl map normal Super L focus-view right
 
-#Focus windows with $mod Arrow keys
-riverctl map normal $mod Left focus-view left
-riverctl map normal $mod Down focus-view down
-riverctl map normal $mod Up focus-view up
-riverctl map normal $mod Right focus-view right
+#Focus windows with Super Arrow keys
+riverctl map normal Super Left focus-view left
+
+riverctl map normal Super Down focus-view down
+riverctl map normal Super Up focus-view up
+riverctl map normal Super Right focus-view right
 # Super+J and Super+K to focus the next/previous view in the layout stack
 # riverctl map normal Super J focus-view next
 # riverctl map normal Super K focus-view previous
@@ -129,7 +125,7 @@ riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
 # Super+Space to toggle float
-riverctl map normal Super Space toggle-float
+riverctl map normal Super A toggle-float
 
 # Super+F to toggle fullscreen
 riverctl map normal Super F toggle-fullscreen
@@ -180,11 +176,7 @@ riverctl border-color-unfocused $RIVER_COLOR4
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 
-# Make all views with an app-id that starts with "float" and title "foo" start floating.
-riverctl rule-add -app-id 'float*' -title 'foo' float
-
-# Make all views with app-id "bar" and any title use client-side decorations
-riverctl rule-add -app-id "bar" csd
+riverctl rule-add -app-id 'TUI*' float
 
 # Set the default layout generator to be rivertile and start it.
 # River will send the process group of the init executable SIGTERM on exit.
@@ -193,7 +185,3 @@ rivertile -view-padding 2 -outer-padding 2 -main-ratio 0.5 -main-count 1 &
 # rivertile -view-padding 6 -outer-padding 6 &
 
 foot --server &
-waybar &
-dunst &
-wl-paste --type text --watch cliphist store &
-wl-clip-persist --clipboard regular &

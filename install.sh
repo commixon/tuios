@@ -21,7 +21,8 @@ if ! [ -x "$(command -v gum)" ]; then
   sudo pacman -Syu --noconfirm gum
 fi
 
-TUIOS_REPO="${TUIOS_REPO:-https://codeberg.org/commixon/tuios.git}"
+# Spam github instead of the good people of codeberg
+TUIOS_REPO="${TUIOS_REPO:-https://github.com/commixon/tuios.git}"
 TUIOS_BRANCH="${TUIOS_BRANCH:-main}"
 
 echo "Cloning ${TUIOS_REPO}"

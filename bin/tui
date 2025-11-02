@@ -4,4 +4,3 @@ title="$1"
 command="${@:2}"
 
 foot -a "TUI $title" "$command"
-
